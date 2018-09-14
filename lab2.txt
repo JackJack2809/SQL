@@ -1,0 +1,25 @@
+CREATE TABLE countires (
+country_id serial NOT NULL primary key,
+country_name varchar(50),
+region_id int,
+population int
+);
+INSERT INTO countires VALUES(default,'Russia',2,1000000);
+INSERT INTO countires (country_name) VALUES ('Turkey');
+INSERT INTO countires (region_id) VALUES (NULL);
+INSERT INTO countires(country_name) VALUES ('China');
+INSERT INTO countires(population) VALUES(100000000);
+UPDATE countires SET country_name = 'Kazakhstan';
+INSERT INTO countires (country_name) VALUES(DEFAULT);
+INSERT INTO countires VALUES (DEFAULT);
+CREATE TABLE countires_new (
+LIKE countires );
+INSERT INTO countires_new SELECT * FROM countires;
+UPDATE countires SET region_id = 1 where region_id = NULL;
+UPDATE countires SET population = population * 1.1 
+RETURNING population as new_population  
+;
+DELETE FROM countires where population > 100000
+DELETE FROM countires_new USING countires
+WHERE countires_new.country_id = countires.country_id
+DELETE FROM countires;
