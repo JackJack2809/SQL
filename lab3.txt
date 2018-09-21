@@ -1,0 +1,47 @@
+SELECT LastName FROM Employees;
+SELECT DISTINCT LastName FROM Employees;
+SELECT * FROM Employees WHERE LastName = 'Smith';
+SELECT * FROM Employees
+  WHERE LastName = 'Smith' OR LastName = 'Doe';
+SELECT * FROM Employees WHERE Department = 14;
+SELECT * FROM Employees
+  WHERE Department = 37 OR Department = 77;
+SELECT SUM(Budget) FROM Departments;
+SELECT Department, COUNT(*)
+  FROM Employees
+  GROUP BY Department;
+SELECT Name FROM Departments
+  WHERE Code IN
+  (
+    SELECT Department
+      FROM Employees
+      GROUP BY Department
+      HAVING COUNT(*) > 2
+  );
+  SELECT Name, LastName 
+FROM Employees 
+WHERE Department IN (
+  SELECT Code 
+  FROM Departments 
+  WHERE Budget = (
+    SELECT  1 Budget 
+    FROM Departments 
+    WHERE Budget IN (
+      SELECT DISTINCT  2 Budget 
+      FROM Departments 
+     ORDER BY Budget ASC
+    ) 
+    ORDER BY Budget DESC
+  )
+	
+);
+SELECT Name FROM Employees  WHERE city = 'Almaty';
+SELECT Name FROM Customers  WHERE city = 'Almaty';
+SELECT Name, LastName FROM Employees
+  WHERE Department IN
+  (SELECT Code FROM Departments WHERE Budget > 60000);
+UPDATE Departments SET Budget = Budget * 0.9;
+UPDATE Employees SET Department = 14 WHERE Department = 77;
+DELETE FROM Employees
+  WHERE Department = 14;
+DELETE FROM Employees;
